@@ -1,0 +1,832 @@
+<!DOCTYPE html>
+
+<html lang="fr">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Veille Technologique - Angular &amp; Java | Gen-Z Web</title>
+<meta content="Dashboard de veille technologique pour les technologies Angular et Java" name="description"/>
+<style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
+            background: #F5F5F5;
+            color: #2C3E50;
+            line-height: 1.6;
+        }
+
+        /* Header */
+        header {
+            background: white;
+            border-bottom: 2px solid #7ABFC7;
+            padding: 20px 0;
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        /* Logo Gen-Z Web */
+        .logo-container {
+            width: 50px;
+            height: 30px;
+            position: relative;
+        }
+
+        .logo-angle {
+            position: absolute;
+            width: 25px;
+            height: 25px;
+            border-left: 3px solid #7ABFC7;
+            border-top: 3px solid #7ABFC7;
+            top: 0;
+            left: 0;
+        }
+
+        .logo-lines {
+            position: absolute;
+            right: 0;
+            top: 5px;
+        }
+
+        .logo-line {
+            width: 20px;
+            height: 2px;
+            background: #7ABFC7;
+            margin-bottom: 3px;
+            opacity: 0.7;
+        }
+
+        .logo-line:nth-child(2) {
+            width: 15px;
+            margin-left: 5px;
+        }
+
+        .logo-line:nth-child(3) {
+            width: 10px;
+            margin-left: 10px;
+        }
+
+        .company-name {
+            font-size: 24px;
+            font-weight: 700;
+            letter-spacing: 3px;
+            color: #1A2332;
+        }
+
+        .date {
+            color: #666;
+            font-size: 14px;
+        }
+
+        /* Navigation */
+        .nav-menu {
+            background: #008B8B;
+            padding: 0;
+            margin-bottom: 30px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-menu ul {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            list-style: none;
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .nav-menu li {
+            margin-right: 30px;
+        }
+
+        .nav-menu a {
+            color: white;
+            text-decoration: none;
+            display: block;
+            padding: 15px 0;
+            transition: opacity 0.3s;
+        }
+
+        .nav-menu a:hover {
+            opacity: 0.8;
+        }
+
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 30px 20px;
+        }
+
+        /* Titres */
+        h1 {
+            color: #008B8B;
+            margin-bottom: 30px;
+            font-size: 28px;
+            border-bottom: 2px solid #7ABFC7;
+            padding-bottom: 10px;
+        }
+
+        h2 {
+            color: #008B8B;
+            margin: 30px 0 20px;
+            font-size: 22px;
+        }
+
+        h3 {
+            color: #2C3E50;
+            margin: 20px 0 10px;
+            font-size: 18px;
+        }
+
+        h4 {
+            color: #555;
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+
+        /* Cards */
+        .card {
+            background: white;
+            border-radius: 8px;
+            padding: 25px;
+            margin-bottom: 25px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        /* Tableaux */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: white;
+        }
+
+        th {
+            background: #008B8B;
+            color: white;
+            padding: 12px;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        td {
+            padding: 12px;
+            border-bottom: 1px solid #E0E0E0;
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        tr:hover {
+            background: #F9F9F9;
+        }
+
+        /* Details box */
+        .details-box {
+            background: #F0F8FF;
+            border: 1px solid #B0D4E3;
+            border-radius: 6px;
+            padding: 15px;
+            margin: 15px 0;
+        }
+
+        .details-box h4 {
+            color: #008B8B;
+            margin-bottom: 10px;
+            font-size: 16px;
+        }
+
+        .details-box ul {
+            margin-left: 20px;
+            margin-top: 10px;
+        }
+
+        .details-box li {
+            margin-bottom: 5px;
+        }
+
+        /* Scores */
+        .score-best {
+            background: #4CAF50;
+            color: white;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        .score-good {
+            background: #8BC34A;
+            color: white;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        .score-medium {
+            background: #FFC107;
+            color: white;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        .score-low {
+            background: #FF5722;
+            color: white;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        /* Decision */
+        .decision {
+            background: #008B8B;
+            color: white;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+
+        .decision strong {
+            font-size: 20px;
+        }
+
+        /* Critères détaillés */
+        .criteria-details {
+            background: #FAFAFA;
+            border: 1px solid #E0E0E0;
+            border-radius: 6px;
+            padding: 20px;
+            margin-top: 15px;
+        }
+
+        .criteria-details h4 {
+            color: #008B8B;
+            font-size: 15px;
+            margin-bottom: 12px;
+            margin-top: 15px;
+        }
+
+        .criteria-details h4:first-child {
+            margin-top: 0;
+        }
+
+        .criteria-details ul {
+            margin-left: 20px;
+            margin-bottom: 10px;
+        }
+
+        .criteria-details li {
+            margin-bottom: 6px;
+            font-size: 14px;
+        }
+
+        .note-box {
+            background: #FFF8E1;
+            border-left: 4px solid #FFC107;
+            padding: 12px;
+            margin: 15px 0;
+            font-size: 14px;
+        }
+
+        /* Sources */
+        .sources {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 2px solid #E0E0E0;
+        }
+
+        .source-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .source-list a {
+            color: #008B8B;
+            text-decoration: none;
+        }
+
+        .source-list a:hover {
+            text-decoration: underline;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .nav-menu ul {
+                flex-direction: column;
+            }
+
+            .nav-menu li {
+                margin-right: 0;
+            }
+
+            table {
+                font-size: 14px;
+            }
+
+            th, td {
+                padding: 8px;
+            }
+        }
+    
+/* Sources - layout propre */
+.sources-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 18px;
+    margin-top: 16px;
+}
+.sources-group h3 {
+    color: #008B8B;
+    font-size: 16px;
+    margin-bottom: 8px;
+}
+.sources-group ol {
+    margin-left: 20px;
+    line-height: 1.8;
+}
+
+/* Logo */
+.brand-logo {
+    height: 48px;
+    width: auto;
+    display: block;
+}
+.logo-section {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+/* Ajustements header après remplacement du logo */
+.brand-logo { height: 44px; width: auto; display: block; }
+.logo-section { display: flex; align-items: center; gap: 12px; }
+.company-name { font-size: 24px; font-weight: 700; letter-spacing: 3px; }
+
+/* --- Header (pro variant) --- */
+.brand { display:flex; align-items:center; gap:12px; text-decoration:none; color:inherit; }
+.brand:focus-visible { outline: 2px solid #008B8B; outline-offset: 2px; border-radius: 6px; }
+.brand-logo { height: 44px; width:auto; display:block; }
+.company-name { font-size: 22px; font-weight: 700; letter-spacing: 2.5px; color:#1A2332; }
+@media (max-width: 640px) {
+  .company-name { display:none; }
+  .brand-logo { height: 36px; }
+}
+</style>
+</head>
+<body><div id="top"></div>
+<header aria-label="En-tête du tableau de bord GEN-Z WEB">
+<div class="header-content">
+<div class="logo-section"><a aria-label="GEN-Z WEB — Accueil" class="brand" href="#top"><img alt="GEN-Z WEB – symbole" class="brand-logo" src="data:image/png;base64,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"/><div class="company-name">GEN-Z WEB</div></a>
+
+</div>
+<div class="date">Mise à jour : 18 août 2025</div>
+</div>
+</header>
+<nav class="nav-menu">
+<ul>
+<li><a href="#objectif">Objectif</a></li>
+<li><a href="#methodologie">Méthodologie</a></li>
+<li><a href="#tests-unitaires">Tests Unitaires</a></li>
+<li><a href="#tests-e2e">Tests E2E</a></li>
+<li><a href="#tests-backend">Tests Backend</a></li>
+<li><a href="#composants-ui">Composants UI</a></li>
+<li><a href="#paradigmes">Paradigmes</a></li>
+<li><a href="#sources">Sources</a></li>
+</ul>
+</nav>
+<div class="container">
+<h1>Dashboard de Veille Technologique - Projet Knesh</h1>
+<div class="card" id="objectif">
+<h2>Objectif de la veille</h2>
+<p>Analyser et comparer les technologies pour le développement du site e-commerce Knesh avec <strong>Angular</strong> (frontend) et <strong>Java</strong> (backend).</p>
+<p>Cette veille couvre trois domaines essentiels : les librairies de test, les composants UI, et les paradigmes de programmation.</p>
+<div class="details-box">
+<h4>Besoins client Knesh</h4>
+<ul>
+<li><strong>Disponibilité permanente</strong> : Site accessible 24/7 sans interruption</li>
+<li><strong>Performance optimale</strong> : Temps de chargement minimal, interface réactive</li>
+<li><strong>Coûts maîtrisés</strong> : Réutilisation maximale de composants existants</li>
+<li><strong>Évolutivité garantie</strong> : Technologies bien documentées pour faciliter les évolutions</li>
+</ul>
+</div>
+</div>
+<div class="card" id="methodologie">
+<h2>Méthodologie d'évaluation</h2>
+<p>Chaque technologie est évaluée selon 4 critères pondérés, avec une note de 1 à 5 :</p>
+<table>
+<thead>
+<tr>
+<th>Critère</th>
+<th>Poids</th>
+<th>Description détaillée</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Robustesse/Disponibilité</strong></td>
+<td>30%</td>
+<td>Stabilité en production, gestion des erreurs, maturité, bugs connus, sécurité</td>
+</tr>
+<tr>
+<td><strong>Rapidité/Performance</strong></td>
+<td>25%</td>
+<td>Temps d'exécution, consommation mémoire, bundle size, compilation, hot-reload</td>
+</tr>
+<tr>
+<td><strong>Coûts/Écosystème</strong></td>
+<td>20%</td>
+<td>Licence, communauté, disponibilité développeurs, plugins, support entreprise</td>
+</tr>
+<tr>
+<td><strong>Évolutivité/Documentation</strong></td>
+<td>25%</td>
+<td>Documentation officielle, exemples, tutoriels, courbe d'apprentissage, roadmap</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="card" id="tests-unitaires">
+<h2>Tests Unitaires Frontend (Angular)</h2>
+<table>
+<thead>
+<tr>
+<th>Technologie</th>
+<th>Robustesse (30%)</th>
+<th>Rapidité (25%)</th>
+<th>Coûts (20%)</th>
+<th>Évolutivité (25%)</th>
+<th>Score Total</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Jest</strong></td>
+<td>4</td>
+<td>5</td>
+<td>4</td>
+<td>4</td>
+<td><span class="score-best">4.25</span></td>
+</tr>
+<tr>
+<td><strong>Jasmine</strong></td>
+<td>4</td>
+<td>3</td>
+<td>4</td>
+<td>3</td>
+<td><span class="score-medium">3.50</span></td>
+</tr>
+</tbody>
+</table>
+<div class="criteria-details">
+<h4>Détails de la robustesse</h4>
+<ul>
+<li><strong>Jest (4/5)</strong> : Framework mature (Facebook), utilisé par React/Vue/Angular, très stable, mises à jour fréquentes</li>
+<li><strong>Jasmine (4/5)</strong> : Très stable depuis 2010, mais évolutions plus lentes, moins de nouvelles fonctionnalités</li>
+</ul>
+<h4>Détails de la rapidité</h4>
+<ul>
+<li><strong>Jest (5/5)</strong> : Parallélisation native, cache intelligent, 30-40% plus rapide, transformation optimisée</li>
+<li><strong>Jasmine (3/5)</strong> : Pas de parallélisation native, exécution séquentielle, temps de test plus longs sur gros projets</li>
+</ul>
+<h4>Détails des coûts</h4>
+<ul>
+<li><strong>Jest (4/5)</strong> : 100% gratuit, grande communauté, nombreux plugins gratuits, formation facile</li>
+<li><strong>Jasmine (4/5)</strong> : Gratuit, communauté active mais plus petite, moins de ressources de formation</li>
+</ul>
+<h4>Détails de l'évolutivité</h4>
+<ul>
+<li><strong>Jest (4/5)</strong> : Documentation excellente, snapshot testing intégré, mocking puissant, support TypeScript natif</li>
+<li><strong>Jasmine (3/5)</strong> : Documentation correcte mais moins d'exemples modernes, pas de snapshot testing natif</li>
+</ul>
+</div>
+<div class="decision">
+<strong>Choix : Jest</strong>
+<p>Performance supérieure, fonctionnalités modernes (snapshot testing), meilleur support TypeScript, standard actuel du marché.</p>
+</div>
+</div>
+<div class="card" id="tests-e2e">
+<h2>Tests End-to-End (E2E)</h2>
+<table>
+<thead>
+<tr>
+<th>Technologie</th>
+<th>Robustesse (30%)</th>
+<th>Rapidité (25%)</th>
+<th>Coûts (20%)</th>
+<th>Évolutivité (25%)</th>
+<th>Score Total</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Cypress</strong></td>
+<td>4</td>
+<td>4</td>
+<td>4</td>
+<td>4</td>
+<td><span class="score-best">4.00</span></td>
+</tr>
+<tr>
+<td><strong>Selenium</strong></td>
+<td>4</td>
+<td>3</td>
+<td>4</td>
+<td>4</td>
+<td><span class="score-good">3.75</span></td>
+</tr>
+<tr>
+<td><strong>Protractor</strong></td>
+<td>2</td>
+<td>2</td>
+<td>2</td>
+<td>2</td>
+<td><span class="score-low">2.00</span></td>
+</tr>
+</tbody>
+</table>
+<div class="criteria-details">
+<h4>Détails de la robustesse</h4>
+<ul>
+<li><strong>Cypress (4/5)</strong> : Tests plus stables, retry automatique, gestion intelligente des attentes, moins de tests flaky</li>
+<li><strong>Selenium (4/5)</strong> : Très mature (2004), support multi-navigateurs excellent, mais configuration complexe</li>
+<li><strong>Protractor (2/5)</strong> : Déprécié depuis 2023, plus de mises à jour, bugs non corrigés</li>
+</ul>
+<h4>Détails de la rapidité</h4>
+<ul>
+<li><strong>Cypress (4/5)</strong> : Exécution dans le navigateur, pas de latence réseau, tests 40% plus rapides</li>
+<li><strong>Selenium (3/5)</strong> : Architecture client-serveur ajoute de la latence, WebDriver plus lent</li>
+<li><strong>Protractor (2/5)</strong> : Basé sur Selenium, performances médiocres, pas d'optimisations récentes</li>
+</ul>
+<h4>Détails des coûts</h4>
+<ul>
+<li><strong>Cypress (4/5)</strong> : Version gratuite très complète, version payante optionnelle pour CI/CD (99$/mois)</li>
+<li><strong>Selenium (4/5)</strong> : 100% gratuit, mais coûts de maintenance et configuration plus élevés</li>
+<li><strong>Protractor (2/5)</strong> : Gratuit mais coût de migration inévitable (fin de vie)</li>
+</ul>
+<h4>Détails de l'évolutivité</h4>
+<ul>
+<li><strong>Cypress (4/5)</strong> : Documentation exceptionnelle, debugging visuel, time-travel, API moderne</li>
+<li><strong>Selenium (4/5)</strong> : Énorme documentation, support tous langages, mais courbe d'apprentissage steep</li>
+<li><strong>Protractor (2/5)</strong> : Documentation obsolète, communauté partie, pas de futur</li>
+</ul>
+</div>
+<div class="decision">
+<strong>Choix : Cypress</strong>
+<p>Architecture moderne, debugging supérieur, tests plus maintenables, meilleure expérience développeur.</p>
+</div>
+<div class="note-box">
+<strong>Note :</strong> Selenium reste valable pour des tests multi-navigateurs complexes ou mobiles (via Appium), mais Cypress couvre 95% des besoins e-commerce.
+            </div>
+</div>
+<div class="card" id="tests-backend">
+<h2>Tests Backend Java</h2>
+<table>
+<thead>
+<tr>
+<th>Technologie</th>
+<th>Robustesse (30%)</th>
+<th>Rapidité (25%)</th>
+<th>Coûts (20%)</th>
+<th>Évolutivité (25%)</th>
+<th>Score Total</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>JUnit 5</strong></td>
+<td>5</td>
+<td>4</td>
+<td>5</td>
+<td>5</td>
+<td><span class="score-best">4.75</span></td>
+</tr>
+<tr>
+<td><strong>Mockito</strong></td>
+<td>5</td>
+<td>5</td>
+<td>5</td>
+<td>4</td>
+<td><span class="score-best">4.75</span></td>
+</tr>
+<tr>
+<td><strong>TestNG</strong></td>
+<td>4</td>
+<td>3</td>
+<td>4</td>
+<td>3</td>
+<td><span class="score-medium">3.50</span></td>
+</tr>
+<tr>
+<td><strong>Cucumber</strong></td>
+<td>3</td>
+<td>3</td>
+<td>4</td>
+<td>3</td>
+<td><span class="score-medium">3.20</span></td>
+</tr>
+</tbody>
+</table>
+<div class="criteria-details">
+<h4>Détails de la robustesse</h4>
+<ul>
+<li><strong>JUnit 5 (5/5)</strong> : Standard Java depuis 20 ans, intégration IDE parfaite, zero bugs critiques</li>
+<li><strong>Mockito (5/5)</strong> : Framework mocking le plus stable, utilisé par 90% des projets Java</li>
+<li><strong>TestNG (4/5)</strong> : Stable mais moins d'évolutions, communauté plus petite</li>
+<li><strong>Cucumber (3/5)</strong> : Bugs fréquents dans le parsing Gherkin, regex fragiles</li>
+</ul>
+<h4>Détails de la rapidité</h4>
+<ul>
+<li><strong>JUnit 5 (4/5)</strong> : Tests parallèles, exécution conditionnelle, très rapide</li>
+<li><strong>Mockito (5/5)</strong> : Création de mocks instantanée, zero overhead</li>
+<li><strong>TestNG (3/5)</strong> : Parallélisation complexe à configurer, plus lent que JUnit 5</li>
+<li><strong>Cucumber (3/5)</strong> : Parsing Gherkin ajoute 20-30% de temps, pas d'optimisations</li>
+</ul>
+<h4>Détails des coûts</h4>
+<ul>
+<li><strong>JUnit 5 (5/5)</strong> : 100% gratuit, intégré partout, zero coût formation (tous les devs Java connaissent)</li>
+<li><strong>Mockito (5/5)</strong> : Open source, documentation gratuite, très simple à apprendre</li>
+<li><strong>TestNG (4/5)</strong> : Gratuit mais formation nécessaire, moins de ressources</li>
+<li><strong>Cucumber (4/5)</strong> : Gratuit mais coût formation élevé (Gherkin + architecture BDD)</li>
+</ul>
+<h4>Détails de l'évolutivité</h4>
+<ul>
+<li><strong>JUnit 5 (5/5)</strong> : Documentation parfaite, milliers d'exemples, extensions modulaires</li>
+<li><strong>Mockito (4/5)</strong> : API simple et stable, excellente documentation, peu d'évolutions (mature)</li>
+<li><strong>TestNG (3/5)</strong> : Documentation datée, moins d'exemples modernes, peu d'évolutions</li>
+<li><strong>Cucumber (3/5)</strong> : Documentation complexe, maintenance difficile, refactoring coûteux</li>
+</ul>
+</div>
+<div class="decision">
+<strong>Choix : JUnit 5 + Mockito</strong>
+<p>Combinaison standard industrie, intégration Spring Boot native, simplicité maximale, productivité optimale.</p>
+</div>
+<div class="note-box">
+<strong>Note sur Cucumber :</strong> BDD (Behavior Driven Development) intéressant pour projets avec forte implication métier, mais surcoût de 40% non justifié pour un e-commerce standard. Les tests JUnit 5 avec noms explicites suffisent.
+            </div>
+</div>
+<div class="card" id="composants-ui">
+<h2>Composants UI Angular</h2>
+<table>
+<thead>
+<tr>
+<th>Technologie</th>
+<th>Robustesse (30%)</th>
+<th>Rapidité (25%)</th>
+<th>Coûts (20%)</th>
+<th>Évolutivité (25%)</th>
+<th>Score Total</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Angular Material</strong></td>
+<td>5</td>
+<td>4</td>
+<td>5</td>
+<td>5</td>
+<td><span class="score-best">4.75</span></td>
+</tr>
+<tr>
+<td><strong>PrimeNG</strong></td>
+<td>4</td>
+<td>4</td>
+<td>4</td>
+<td>4</td>
+<td><span class="score-good">4.00</span></td>
+</tr>
+<tr>
+<td><strong>NG-ZORRO</strong></td>
+<td>4</td>
+<td>4</td>
+<td>3</td>
+<td>4</td>
+<td><span class="score-good">3.80</span></td>
+</tr>
+</tbody>
+</table>
+<div class="criteria-details">
+<h4>Détails de la robustesse</h4>
+<ul>
+<li><strong>Angular Material (5/5)</strong> : Maintenu par Google, synchronisé avec Angular, zero breaking changes surprise</li>
+<li><strong>PrimeNG (4/5)</strong> : Équipe dédiée PrimeTek, releases régulières, quelques bugs sur composants complexes</li>
+<li><strong>NG-ZORRO (4/5)</strong> : Maintenu par Alibaba, stable mais support prioritaire marché chinois</li>
+</ul>
+<h4>Détails de la rapidité</h4>
+<ul>
+<li><strong>Angular Material (4/5)</strong> : Tree-shaking parfait, bundle minimal, lazy loading natif, CDK optimisé</li>
+<li><strong>PrimeNG (4/5)</strong> : Bundle plus lourd (+30%) mais composants très optimisés, animations fluides</li>
+<li><strong>NG-ZORRO (4/5)</strong> : Performance correcte, mais animations parfois lourdes, bundle moyen</li>
+</ul>
+<h4>Détails des coûts</h4>
+<ul>
+<li><strong>Angular Material (5/5)</strong> : 100% gratuit pour toujours, support Google, aucun coût caché</li>
+<li><strong>PrimeNG (4/5)</strong> : Version Community gratuite, Pro à 499$/dev/an pour thèmes premium et support</li>
+<li><strong>NG-ZORRO (3/5)</strong> : Gratuit mais coût formation plus élevé (doc chinoise), moins de devs qualifiés</li>
+</ul>
+<h4>Détails de l'évolutivité</h4>
+<ul>
+<li><strong>Angular Material (5/5)</strong> : Documentation Google parfaite, CDK extensible, roadmap claire, exemples StackBlitz</li>
+<li><strong>PrimeNG (4/5)</strong> : Bonne doc, nombreux exemples, mais personnalisation parfois complexe</li>
+<li><strong>NG-ZORRO (4/5)</strong> : Doc complète mais 30% encore en chinois, exemples bien faits</li>
+</ul>
+</div>
+<div class="decision">
+<strong>Choix : Angular Material</strong>
+<p>Solution officielle Google, pérennité garantie, cohérence parfaite avec Angular, coût zéro.</p>
+</div>
+<div class="note-box">
+<strong>Utilisation complémentaire :</strong> PrimeNG peut être ajouté pour des composants spécifiques (DataTable avancée, Charts, FileUpload, Calendar complexe) non disponibles dans Material.
+            </div>
+</div>
+<div class="card" id="paradigmes">
+<h2>Paradigmes de Programmation</h2>
+<table>
+<thead>
+<tr>
+<th>Technologie</th>
+<th>Paradigme Principal</th>
+<th>Paradigme Secondaire</th>
+<th>Impact Performance</th>
+<th>Impact Maintenance</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Angular</strong></td>
+<td>Réactif (RxJS)</td>
+<td>Déclaratif (Templates)</td>
+<td>Excellent (OnPush)</td>
+<td>Très bon</td>
+</tr>
+<tr>
+<td><strong>Java/Spring</strong></td>
+<td>Orienté Objet</td>
+<td>Fonctionnel (Java 8+)</td>
+<td>Très bon</td>
+<td>Excellent</td>
+</tr>
+</tbody>
+</table>
+<div class="criteria-details">
+<h4>Angular - Paradigme Réactif + Déclaratif</h4>
+<ul>
+<li><strong>Gestion des flux asynchrones :</strong> RxJS avec operators (map, filter, switchMap) pour HTTP et WebSockets</li>
+<li><strong>Performance :</strong> Change Detection OnPush avec Observables réduit les cycles de 70%</li>
+<li><strong>Maintenabilité :</strong> Unsubscribe automatique avec async pipe, pas de memory leaks</li>
+<li><strong>Testabilité :</strong> Marble testing pour les observables, tests déterministes</li>
+<li><strong>Nouveauté :</strong> Signals (v16+) simplifie la gestion d'état local</li>
+</ul>
+<h4>Java - Paradigme Orienté Objet + Fonctionnel</h4>
+<ul>
+<li><strong>Modélisation domaine :</strong> Classes, héritage, polymorphisme pour entités métier</li>
+<li><strong>SOLID principles :</strong> Single Responsibility, Open/Closed, Dependency Injection</li>
+<li><strong>Programmation fonctionnelle :</strong> Streams API réduit le code de 30%, lambdas pour callbacks</li>
+<li><strong>Gestion erreurs :</strong> Optional<t> élimine 90% des NullPointerException</t></li>
+<li><strong>Performance :</strong> Parallel streams pour traitement multi-thread automatique</li>
+</ul>
+<h4>Paradigmes non retenus et pourquoi</h4>
+<ul>
+<li><strong>Programmation impérative pure :</strong> Code spaghetti, difficile à maintenir, pas adapté aux UI modernes</li>
+<li><strong>Programmation procédurale :</strong> Pas de réutilisabilité, inadapté aux besoins modulaires e-commerce</li>
+<li><strong>Event-Driven pur :</strong> Complexité excessive pour un e-commerce, RxJS suffit pour les events</li>
+<li><strong>Programmation logique :</strong> Inadapté au développement web, niche spécifique (Prolog)</li>
+</ul>
+</div>
+<div class="decision">
+<strong>Choix : Réactif/Déclaratif (Angular) + OOP/Fonctionnel (Java)</strong>
+<p>Combinaison optimale pour performance, maintenabilité et productivité dans le contexte e-commerce.</p>
+</div>
+</div>
+<div class="sources" id="sources"><h2>Sources Officielles et Documentation</h2><div class="sources-grid" role="list"><section aria-labelledby="grp-angular-&amp;-frontend" class="sources-group"><h3 id="grp-angular-&amp;-frontend">Angular &amp; Frontend</h3><ol><li><a aria-label="Angular Documentation Officielle" href="https://angular.dev/" rel="noopener noreferrer" target="_blank">Angular Documentation Officielle</a></li><li><a aria-label="Angular GitHub Repository" href="https://github.com/angular/angular" rel="noopener noreferrer" target="_blank">Angular GitHub Repository</a></li><li><a aria-label="Angular Material Design" href="https://material.angular.dev/" rel="noopener noreferrer" target="_blank">Angular Material Design</a></li><li><a aria-label="Angular Signals Guide" href="https://angular.dev/guide/signals" rel="noopener noreferrer" target="_blank">Angular Signals Guide</a></li><li><a aria-label="RxJS - Reactive Extensions" href="https://rxjs.dev/" rel="noopener noreferrer" target="_blank">RxJS - Reactive Extensions</a></li><li><a aria-label="Stack Overflow - Angular" href="https://stackoverflow.com/questions/tagged/angular" rel="noopener noreferrer" target="_blank">Stack Overflow - Angular</a></li></ol></section><section aria-labelledby="grp-testing" class="sources-group"><h3 id="grp-testing">Testing</h3><ol><li><a aria-label="Cypress - E2E Testing" href="https://docs.cypress.io/" rel="noopener noreferrer" target="_blank">Cypress - E2E Testing</a></li><li><a aria-label="Jasmine Framework" href="https://jasmine.github.io/" rel="noopener noreferrer" target="_blank">Jasmine Framework</a></li><li><a aria-label="Jest - Testing Framework" href="https://jestjs.io/" rel="noopener noreferrer" target="_blank">Jest - Testing Framework</a></li><li><a aria-label="Selenium WebDriver" href="https://www.selenium.dev/" rel="noopener noreferrer" target="_blank">Selenium WebDriver</a></li></ol></section><section aria-labelledby="grp-java-&amp;-backend" class="sources-group"><h3 id="grp-java-&amp;-backend">Java &amp; Backend</h3><ol><li><a aria-label="Baeldung - Java Tutorials" href="https://www.baeldung.com/" rel="noopener noreferrer" target="_blank">Baeldung - Java Tutorials</a></li><li><a aria-label="Cucumber BDD" href="https://cucumber.io/" rel="noopener noreferrer" target="_blank">Cucumber BDD</a></li><li><a aria-label="JUnit 5 User Guide" href="https://junit.org/junit5/" rel="noopener noreferrer" target="_blank">JUnit 5 User Guide</a></li><li><a aria-label="Mockito - Mocking Framework" href="https://site.mockito.org/" rel="noopener noreferrer" target="_blank">Mockito - Mocking Framework</a></li><li><a aria-label="Spring Framework Documentation" href="https://docs.spring.io/" rel="noopener noreferrer" target="_blank">Spring Framework Documentation</a></li><li><a aria-label="TestNG Framework" href="https://testng.org/" rel="noopener noreferrer" target="_blank">TestNG Framework</a></li></ol></section><section aria-labelledby="grp-ui-libraries" class="sources-group"><h3 id="grp-ui-libraries">UI Libraries</h3><ol><li><a aria-label="NG-ZORRO Ant Design" href="https://ng.ant.design/" rel="noopener noreferrer" target="_blank">NG-ZORRO Ant Design</a></li><li><a aria-label="PrimeNG Components" href="https://primeng.org/" rel="noopener noreferrer" target="_blank">PrimeNG Components</a></li></ol></section></div></div>
+</div>
+</body>
+</html>
